@@ -44,6 +44,7 @@
   # To ensure gcc being default, we use gccStdenv as a base instead of just stdenv
   # mkDerivation is the main function used to build packages with the Stdenv
   package = mcc-env.mkDerivation (self: {
+    # TODO: set project name
     name = "cpp-nix-app";
     version = "0.0.3";
 
@@ -54,6 +55,7 @@
       ncurses
       cmake
       gnumake
+      clang
     ];
 
     # Programs and libraries used by the new derivation at run-time
@@ -124,12 +126,6 @@
       kotur-nixpkgs.dinosay # packet loads from the custom nixpkgs (kotur-nixpkgs)
     ];
 
-    # Hook used for modifying the prompt look and printing the welcome message
-    shellHook = ''
-      PS1="\[\e[32m\][\[\e[m\]\[\e[33m\]nix-shell\\[\e[m\]:\[\e[36m\]\w\[\e[m\]\[\e[32m\]]\[\e[m\]\\$\[\e[m\] "
-      alias ll="ls -l"
-      dinosay -r -b happy -w 60 "Welcome to the '${package.name}' dev environment!"
-    '';
   };
 in
   package
